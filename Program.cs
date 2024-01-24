@@ -1,4 +1,4 @@
-﻿using ConsoleApp1.DataModel;
+using ConsoleApp1.DataModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +11,15 @@ namespace ConsoleApp1
     {
         static void Print()
         {
+            using (SportContext context = new SportContext())
+            {
+                var sportsmenList = context.sportsmens.ToList();
+                Console.WriteLine("Список спортсменов:");
+                foreach (var sportsman in sportsmenList)
+                {
+                    Console.WriteLine($"Имя: {sportsman.Name}, Фамилия: {sportsman.Surname}, Название игры: {sportsman.Namesport}");
+                }
+            }
             using (SportContext context = new SportContext())
             {
                 sportsman sportsman = new sportsman();
@@ -37,7 +46,7 @@ namespace ConsoleApp1
             do
             {
                 Console.WriteLine("Добавление записи спортсменов - 1");
-                Console.WriteLine("");
+                Console.WriteLine("Вывод списка всех спортсменов - 2");
                 Console.WriteLine("Выход - 3");
                 a = Console.ReadLine();
                 if (a == "1")
@@ -46,7 +55,15 @@ namespace ConsoleApp1
                 }
                 else if (a == "2")
                 {
-                    //Read();
+                    using (var context = new SportContext())
+                    {
+                        var sportsmenList = context.sportsmens.ToList();
+                        Console.WriteLine("Список спортсменов:");
+                        foreach (var sportsman in sportsmenList)
+                        {
+                            Console.WriteLine($"Имя: {sportsman.Name}, Фамилия: {sportsman.Surname}, Название игры: {sportsman.Namesport}");
+                        }
+                    }
                 }
             } while (a != "3");
         }
